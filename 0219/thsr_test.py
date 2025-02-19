@@ -2,6 +2,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select # 下拉式選單使用
+from ocr_component import get_captcha_code
 
 driver = webdriver.Chrome()
 driver.get("https://irs.thsrc.com.tw/IMINT/")
@@ -30,12 +31,13 @@ star_date = '三月 1, 2025'
 date_element = driver.find_element(By.XPATH, "//span[@class='flatpickr-day' and @aria-label='{star_date}']")
 date_element.click()
 
-# Captcha 獲取圖片
-captcha_img = driver.find_element(By.ID, "BookingS1Form_homeCaptcha_passCode")
+# captcha 獲取圖片
+captcha_img = driver.find_element(By.ID, 'BookingS1Form_homeCaptcha_passCode')
 captcha_img.screenshot('captcha.png')
+captcha_code = get_captcha_code() # 呼叫外部函式
 # 輸入驗證碼
 captcha_input = driver.find_element(By.ID, 'securityCode')
-captcha_input.send_keys('5566')
+captcha_input.send_keys(captcha_code)
 
 time.sleep(5)
 # submit 開始查詢
