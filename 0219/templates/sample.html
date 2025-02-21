@@ -1,29 +1,52 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的簡單網頁</title>
+    <title>簡單的HTML表單</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        button { padding: 10px 20px; font-size: 16px; }
+        input, button { margin: 10px; padding: 10px; }
     </style>
 </head>
 <body>
-    <h1>歡迎來到我的簡單網頁</h1>
-    <p>這是一個基本的 HTML 頁面，包含按鈕與表單。</p>
+    <h3>Get name</h3>
+    {% if name %}
+        <p> 我的名字是: {{ name }} </p>
+    {% endif %}
+
+    <h3>Get numbers</h3>
+    {% for number in numbers %}
+        <p>  Get number : {{ number }} </p>
+    {% endfor %}
+
+    <h3>Get pairs</h3>
+    {% for alpha, number in pairs %}
+        <p>  Get pairs : {{ alpha }}, {{ number }} </p>
+    {% endfor %}
+
+    <h3>Get dictionary</h3>
+    {% for key, value in dict_data.items() %}
+        <p>  Get dictionary : {{ key }}, {{ value }} </p>
+    {% endfor %}
+
+    {% for key in dict_data %}
+        <p>  Get value with key: {{dict_data[key]}} </p>
+    {% endfor %}
+
+    <h2>輸入你的資訊</h2>
+    <input type="text" id="name" placeholder="請輸入你的名字" value="{{ name }}">
+    <br>
+    <button onclick="submitForm()">提交</button>
+    <button onclick="clearForm()">清除</button>
     
-    <button onclick="alert('你點擊了按鈕！')">點擊我</button>
-    
-    <h2>填寫表單</h2>
-    <form>
-        <label for="name">姓名：</label>
-        <input type="text" id="name" name="name" required>
-        <br><br>
-        <label for="email">Email：</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-        <button type="submit">提交</button>
-    </form>
+    <script>
+        function submitForm() {
+            alert("已提交: " + document.getElementById("name").value);
+        }
+        function clearForm() {
+            document.getElementById("name").value = "";
+        }
+    </script>
 </body>
 </html>
